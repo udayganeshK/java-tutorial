@@ -1,11 +1,6 @@
 
 
-# Layered Architecture <span style="font-size:1.2em;">🗂️</span>
-
-<br>
-
-
-# Layered Architecture in Spring Boot
+# Layered Architecture in Spring Boot <span style="font-size:1.2em;">🗂️</span>
 
 ## What is Layered Architecture?
 Layered architecture is a design pattern that organizes your application into logical layers, each with a clear responsibility. It's the most common pattern for Java REST APIs using Spring Boot.
