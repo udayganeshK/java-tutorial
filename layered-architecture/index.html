@@ -9,8 +9,6 @@
       
       
       
-        <link rel="prev" href="..">
-      
       
       
         
@@ -21,7 +19,7 @@
     
     
       
-        <title>Layered Architecture - Java Spring Boot REST Tutorials</title>
+        <title>Layered Architecture: Controllers, Services, Repositories - Java Spring Boot REST Tutorials</title>
       
     
     
@@ -96,7 +94,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Layered Architecture
+              Layered Architecture: Controllers, Services, Repositories
             
           </span>
         </div>
@@ -186,13 +184,11 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../topics/layered-architecture/" class="md-tabs__link">
           
   
   
@@ -270,29 +266,24 @@
       
   
   
-    
   
   
-  
     
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
@@ -310,7 +301,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -325,19 +316,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../topics/layered-architecture/" class="md-nav__link">
         
   
   
@@ -353,7 +335,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -384,82 +365,80 @@
 
 
 <h1 id="layered-architecture-controllers-services-repositories">Layered Architecture: Controllers, Services, Repositories</h1>
-<p>=== "Concise View"</p>
-<pre><code>- **Controller**: Handles HTTP requests/responses
-- **Service**: Business logic
-- **Repository**: Data access (DB operations)
-- Promotes maintainability, testability, and separation of concerns
-</code></pre>
-<p>=== "Detailed View"</p>
-<pre><code>## Overview
-Layered architecture organizes code into logical layers, each with a specific responsibility. In Spring Boot, the most common layers are:
-
-- **Controller**: Handles HTTP requests and responses
-- **Service**: Contains business logic
-- **Repository**: Manages data access (e.g., database operations)
-
-This separation improves maintainability, testability, and scalability. It also makes it easier to test and refactor code, and to assign clear responsibilities to each part of your application.
-
-## Structure Example
-```
-com.example.demo
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Concise View</label><div class="tabbed-content">
+<ul>
+<li><strong>Controller</strong>: Handles HTTP requests/responses</li>
+<li><strong>Service</strong>: Business logic</li>
+<li><strong>Repository</strong>: Data access (DB operations)</li>
+<li>Promotes maintainability, testability, and separation of concerns</li>
+</ul>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Detailed View</label><div class="tabbed-content">
+<h2 id="overview">Overview</h2>
+<p>Layered architecture organizes code into logical layers, each with a specific responsibility. In Spring Boot, the most common layers are:</p>
+<ul>
+<li><strong>Controller</strong>: Handles HTTP requests and responses</li>
+<li><strong>Service</strong>: Contains business logic</li>
+<li><strong>Repository</strong>: Manages data access (e.g., database operations)</li>
+</ul>
+<p>This separation improves maintainability, testability, and scalability. It also makes it easier to test and refactor code, and to assign clear responsibilities to each part of your application.</p>
+<h2 id="structure-example">Structure Example</h2>
+<div class="highlight"><pre><span></span><code>com.example.demo
 ├── controller
 │   └── BookController.java
 ├── service
 │   └── BookService.java
 └── repository
     └── BookRepository.java
-```
+</code></pre></div>
+<h2 id="code-example">Code Example</h2>
+<p><strong>BookController.java</strong>
+<div class="highlight"><pre><span></span><code><span class="nd">@RestController</span>
+<span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&quot;/api/books&quot;</span><span class="p">)</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">BookController</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@Autowired</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">BookService</span><span class="w"> </span><span class="n">bookService</span><span class="p">;</span>
 
-## Code Example
-**BookController.java**
-```java
-@RestController
-@RequestMapping("/api/books")
-public class BookController {
-    @Autowired
-    private BookService bookService;
+<span class="w">    </span><span class="nd">@GetMapping</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">BookDTO</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getAllBooks</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">bookService</span><span class="p">.</span><span class="na">getAllBooks</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>BookService.java</strong>
+<div class="highlight"><pre><span></span><code><span class="nd">@Service</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">BookService</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nd">@Autowired</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">BookRepository</span><span class="w"> </span><span class="n">bookRepository</span><span class="p">;</span>
 
-    @GetMapping
-    public List&lt;BookDTO&gt; getAllBooks() {
-        return bookService.getAllBooks();
-    }
-}
-```
-
-**BookService.java**
-```java
-@Service
-public class BookService {
-    @Autowired
-    private BookRepository bookRepository;
-
-    public List&lt;BookDTO&gt; getAllBooks() {
-        // business logic, mapping, etc.
-        return ...;
-    }
-}
-```
-
-**BookRepository.java**
-```java
-public interface BookRepository extends JpaRepository&lt;Book, Long&gt; {}
-```
-
-## Lab Instructions
-1. Create a new Spring Boot project with the above structure.
-2. Implement a simple REST API for managing books using Controller, Service, and Repository layers.
-3. Add a new endpoint to fetch all books.
-4. (Optional) Add endpoints for creating, updating, and deleting books.
-
-## Angular Perspective
-- Similar to Angular's separation of concerns: Components (UI), Services (logic), and HttpClient (data access).
-- Promotes modular, testable code in both frontend and backend.
-
-## Further Reading
-- [Spring Boot Reference Documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/)
-- [Layered Architecture Pattern](https://martinfowler.com/eaaCatalog/layeredArchitecture.html)
-</code></pre>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">BookDTO</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getAllBooks</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// business logic, mapping, etc.</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">...;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p><strong>BookRepository.java</strong>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">BookRepository</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">Book</span><span class="p">,</span><span class="w"> </span><span class="n">Long</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{}</span>
+</code></pre></div></p>
+<h2 id="lab-instructions">Lab Instructions</h2>
+<ol>
+<li>Create a new Spring Boot project with the above structure.</li>
+<li>Implement a simple REST API for managing books using Controller, Service, and Repository layers.</li>
+<li>Add a new endpoint to fetch all books.</li>
+<li>(Optional) Add endpoints for creating, updating, and deleting books.</li>
+</ol>
+<h2 id="angular-perspective">Angular Perspective</h2>
+<ul>
+<li>Similar to Angular's separation of concerns: Components (UI), Services (logic), and HttpClient (data access).</li>
+<li>Promotes modular, testable code in both frontend and backend.</li>
+</ul>
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+<li><a href="https://docs.spring.io/spring-boot/docs/current/reference/html/">Spring Boot Reference Documentation</a></li>
+<li><a href="https://martinfowler.com/eaaCatalog/layeredArchitecture.html">Layered Architecture Pattern</a></li>
+</ul>
+</div>
+</div>
 
 
 
