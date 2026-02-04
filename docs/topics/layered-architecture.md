@@ -4,36 +4,6 @@
 
 <br>
 
-<div style="margin-bottom: 1em;">
-<b>Jump to:</b>
-<a href="#concise-overview-">Concise View</a> |
-<a href="#detailed-guide-">Detailed View</a>
-</div>
-
-=== "Concise Overview 📝"
-
-!!! info "What is Layered Architecture?"
-    Layered architecture is a design pattern that organizes your application into logical layers, each with a clear responsibility. It's the most common pattern for Java REST APIs using Spring Boot.
-
-<table>
-  <tr>
-    <td> <b>🔗 Controller Layer</b> </td>
-    <td>Handles HTTP requests and responses, maps endpoints, and delegates work to the service layer.</td>
-  </tr>
-  <tr>
-    <td> <b>⚙️ Service Layer</b> </td>
-    <td>Contains business logic, validation, and orchestration of data.</td>
-  </tr>
-  <tr>
-    <td> <b>💾 Repository Layer</b> </td>
-    <td>Manages data access, such as database operations.</td>
-  </tr>
-</table>
-
-**Key Benefits:**
-
-
-**Quick Example:**
 
 # Layered Architecture in Spring Boot
 
