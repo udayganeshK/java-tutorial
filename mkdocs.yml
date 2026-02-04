@@ -12,4 +12,4 @@ nav:
     - Layered Architecture: layered-architecture.md
 
 docs_dir: docs
-site_dir: _site
+site_dir: site

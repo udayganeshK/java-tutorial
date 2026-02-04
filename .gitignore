@@ -8,3 +8,6 @@
 *.class
 /target/
 .DS_Store
+
+# MkDocs build output
+/site/
