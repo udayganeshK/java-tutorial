@@ -11,6 +11,7 @@ nav:
   - Home: index.md
   - Topics:
       - Layered Architecture: topics/layered-architecture.md
+      - Dependency Injection: topics/dependency-injection.md
 
 markdown_extensions:
   - admonition
