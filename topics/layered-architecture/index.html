@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#layered-architecture" class="md-skip">
+        <a href="#layered-architecture-in-spring-boot" class="md-skip">
           Skip to content
         </a>
       
@@ -339,6 +339,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Layered Architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -355,6 +373,273 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-layered-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is Layered Architecture?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-benefits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Benefits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-layers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Layers?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-angular-developer-mental-map" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The "Angular Developer" Mental Map
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implementation-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementation Example
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementation Example">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-controller-the-api-surface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The Controller (The API Surface)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-the-service-business-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. The Service (Business Logic)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-the-repository-data-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The Repository (Data Access)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-instructions-the-migration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Instructions: "The Migration"
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reference-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference Comparison
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-world-use-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Use Case
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparison-with-other-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison with Other Architectures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Code Example
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-world-use-case_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Real-World Use Case
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#comparison-with-other-architectures_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparison with Other Architectures
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Best Practices
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lab-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lab Instructions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#angular-perspective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Angular Perspective
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Further Reading
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -413,9 +698,7 @@
 
 
 
-<h1 id="layered-architecture">Layered Architecture <span style="font-size:1.2em;">🗂️</span></h1>
-<p><br></p>
-<h1 id="layered-architecture-in-spring-boot">Layered Architecture in Spring Boot</h1>
+<h1 id="layered-architecture-in-spring-boot">Layered Architecture in Spring Boot <span style="font-size:1.2em;">🗂️</span></h1>
 <h2 id="what-is-layered-architecture">What is Layered Architecture?</h2>
 <p>Layered architecture is a design pattern that organizes your application into logical layers, each with a clear responsibility. It's the most common pattern for Java REST APIs using Spring Boot.</p>
 <table>
