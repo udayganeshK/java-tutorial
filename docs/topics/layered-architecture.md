@@ -34,48 +34,27 @@
 
 
 **Quick Example:**
-```java
-// Controller
-@RestController
-@RequestMapping("/api/books")
-public class BookController {
-    @Autowired
-    private BookService bookService;
-    // ...
-}
-
-// Service
-@Service
-public class BookService {
-    @Autowired
-    private BookRepository bookRepository;
-    // ...
-}
-
-// Repository
-@Repository
-public class BookRepository {
-    // ...
-}
-```
 
 # Layered Architecture in Spring Boot
 
-=== "Concise View"
+## What is Layered Architecture?
+Layered architecture is a design pattern that organizes your application into logical layers, each with a clear responsibility. It's the most common pattern for Java REST APIs using Spring Boot.
 
-**Controller: The Entry Point.** Handles HTTP routing and Request/Response mapping.  
-**Service: The Brain.** Orchestrates business logic, transactions, and security.  
-**Repository: The Data Gateway.** Abstracts SQL/NoSQL operations using Spring Data JPA.  
-**Goal:** Decouple logic from infrastructure to ensure your code doesn't become a "Big Ball of Mud."
+| Layer         | Responsibility                                                                 |
+|-------------- |-------------------------------------------------------------------------------|
+| Controller    | Handles HTTP requests and responses, maps endpoints, delegates to service     |
+| Service       | Contains business logic, validation, orchestration of data                    |
+| Repository    | Manages data access, such as database operations                              |
 
----
+## Key Benefits
+- 🧩 Clear separation of concerns
+- 🧪 Easier to test and maintain
+- 🚀 Promotes code reuse and scalability
 
-=== "Detailed View"
-
-#### Why Layers?
+## Why Layers?
 In the Java ecosystem, we follow the Principle of Single Responsibility. By isolating the database logic from the REST logic, we can swap a MySQL database for MongoDB without ever touching our REST Controller.
 
-#### The "Angular Developer" Mental Map
+## The "Angular Developer" Mental Map
 | Java Layer   | Angular Equivalent      | Responsibility                                      |
 |-------------|------------------------|-----------------------------------------------------|
 | Controller  | Component / Route      | Receiving the "event" (HTTP call) and returning a View/Data |
@@ -83,51 +62,49 @@ In the Java ecosystem, we follow the Principle of Single Responsibility. By isol
 | Repository  | HttpClient + Store     | Interacting with the external data source (the DB)   |
 | DTO/Entity  | Interface / Model      | Defining the shape of the data                       |
 
-#### Implementation Example
+## Implementation Example
 We’ll use a Book Management system. Notice the use of `@RequiredArgsConstructor`—it's the modern Java way to do Dependency Injection (instead of the older `@Autowired` on fields).
 
-**1. The Controller (The API Surface)**
+### 1. The Controller (The API Surface)
 ```java
 @RestController
 @RequestMapping("/api/v1/books")
 @RequiredArgsConstructor 
 public class BookController {
-        private final BookService bookService; // Final fields + RequiredArgsConstructor = Clean DI
+    private final BookService bookService; // Final fields + RequiredArgsConstructor = Clean DI
 
-        @GetMapping
-        public ResponseEntity<List<BookResponse>> getAllBooks() {
-                return ResponseEntity.ok(bookService.fetchAllBooks());
-        }
+    @GetMapping
+    public ResponseEntity<List<BookResponse>> getAllBooks() {
+        return ResponseEntity.ok(bookService.fetchAllBooks());
+    }
 }
 ```
 
-**2. The Service (Business Logic)**
+### 2. The Service (Business Logic)
 ```java
 @Service
 @RequiredArgsConstructor
 public class BookService {
-        private final BookRepository repository;
+    private final BookRepository repository;
 
-        @Transactional(readOnly = true)
-        public List<BookResponse> fetchAllBooks() {
-                return repository.findAll().stream()
-                                .map(book -> new BookResponse(book.getId(), book.getTitle()))
-                                .toList(); // Java 17+ syntax
-        }
+    @Transactional(readOnly = true)
+    public List<BookResponse> fetchAllBooks() {
+        return repository.findAll().stream()
+                .map(book -> new BookResponse(book.getId(), book.getTitle()))
+                .toList(); // Java 17+ syntax
+    }
 }
 ```
 
-**3. The Repository (Data Access)**
+### 3. The Repository (Data Access)
 ```java
 @Repository
 public interface BookRepository extends JpaRepository<BookEntity, Long> {
-        // You get CRUD for free! No implementation code needed.
+    // You get CRUD for free! No implementation code needed.
 }
 ```
 
----
-
-### Lab Instructions: "The Migration"
+## Lab Instructions: "The Migration"
 1. **Generate:** Use start.spring.io to bootstrap a project with Spring Web and Spring Data JPA.
 2. **Model:** Create a Book entity with id, title, and author.
 3. **Bridge:** Create the Repository interface.
@@ -136,42 +113,9 @@ public interface BookRepository extends JpaRepository<BookEntity, Long> {
 
 > **Pro Tip for Angular Devs:** In Java, we use DTOs (Data Transfer Objects) to send data to the frontend. Never expose your Database Entity directly to your Angular HttpClient! It’s like sending your internal private class members over the wire.
 
-#### Reference Comparison
+## Reference Comparison
 - **Spring Boot:** Uses Annotations (`@Service`, `@RestController`) for Metadata.
 - **Angular:** Uses Decorators (`@Component`, `@Injectable`) for Metadata.
-
-**When to Use:**
-
-- Most RESTful APIs and CRUD applications
-- Projects where maintainability and testability are priorities
-
-**Compare:**
-
-- Easier to understand than Hexagonal or Microkernel architectures
-
-**Real-World Example:**
-
-> Online bookstores, banking apps, and ticketing systems often use this pattern for their backend APIs.
-
----
-
-=== "Detailed Guide 📚"
-
-!!! tip "Why Use Layered Architecture?"
-    - **Separation of Concerns:** Each layer has a single responsibility, making code easier to manage.
-    - **Testability:** You can test each layer independently using mocks or stubs.
-    - **Maintainability:** Changes in one layer (e.g., switching databases) have minimal impact on others.
-    - **Scalability:** Layers can be scaled or replaced independently.
-
-## Typical Structure
-
-```text
-com.example.demo
-├── controller
-│   └── BookController.java
-├── service
-│   └── BookService.java
-└── repository
     └── BookRepository.java
 ```
 
