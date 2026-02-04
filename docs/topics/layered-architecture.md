@@ -25,9 +25,6 @@
 
 **Key Benefits:**
 
-- 🧩 Clear separation of concerns
-- 🧪 Easier to test and maintain
-- 🚀 Promotes code reuse and scalability
 
 **Quick Example:**
 ```java
@@ -54,6 +51,87 @@ public class BookRepository {
     // ...
 }
 ```
+
+# Layered Architecture in Spring Boot
+
+=== "Concise View"
+
+**Controller: The Entry Point.** Handles HTTP routing and Request/Response mapping.  
+**Service: The Brain.** Orchestrates business logic, transactions, and security.  
+**Repository: The Data Gateway.** Abstracts SQL/NoSQL operations using Spring Data JPA.  
+**Goal:** Decouple logic from infrastructure to ensure your code doesn't become a "Big Ball of Mud."
+
+---
+
+=== "Detailed View"
+
+#### Why Layers?
+In the Java ecosystem, we follow the Principle of Single Responsibility. By isolating the database logic from the REST logic, we can swap a MySQL database for MongoDB without ever touching our REST Controller.
+
+#### The "Angular Developer" Mental Map
+| Java Layer   | Angular Equivalent      | Responsibility                                      |
+|-------------|------------------------|-----------------------------------------------------|
+| Controller  | Component / Route      | Receiving the "event" (HTTP call) and returning a View/Data |
+| Service     | Service (@Injectable)  | Calculating data, handling state, and sharing logic  |
+| Repository  | HttpClient + Store     | Interacting with the external data source (the DB)   |
+| DTO/Entity  | Interface / Model      | Defining the shape of the data                       |
+
+#### Implementation Example
+We’ll use a Book Management system. Notice the use of `@RequiredArgsConstructor`—it's the modern Java way to do Dependency Injection (instead of the older `@Autowired` on fields).
+
+**1. The Controller (The API Surface)**
+```java
+@RestController
+@RequestMapping("/api/v1/books")
+@RequiredArgsConstructor 
+public class BookController {
+        private final BookService bookService; // Final fields + RequiredArgsConstructor = Clean DI
+
+        @GetMapping
+        public ResponseEntity<List<BookResponse>> getAllBooks() {
+                return ResponseEntity.ok(bookService.fetchAllBooks());
+        }
+}
+```
+
+**2. The Service (Business Logic)**
+```java
+@Service
+@RequiredArgsConstructor
+public class BookService {
+        private final BookRepository repository;
+
+        @Transactional(readOnly = true)
+        public List<BookResponse> fetchAllBooks() {
+                return repository.findAll().stream()
+                                .map(book -> new BookResponse(book.getId(), book.getTitle()))
+                                .toList(); // Java 17+ syntax
+        }
+}
+```
+
+**3. The Repository (Data Access)**
+```java
+@Repository
+public interface BookRepository extends JpaRepository<BookEntity, Long> {
+        // You get CRUD for free! No implementation code needed.
+}
+```
+
+---
+
+### Lab Instructions: "The Migration"
+1. **Generate:** Use start.spring.io to bootstrap a project with Spring Web and Spring Data JPA.
+2. **Model:** Create a Book entity with id, title, and author.
+3. **Bridge:** Create the Repository interface.
+4. **Process:** Implement a Service method that filters books by author name.
+5. **Expose:** Create a GET endpoint in the Controller that accepts a `@RequestParam`.
+
+> **Pro Tip for Angular Devs:** In Java, we use DTOs (Data Transfer Objects) to send data to the frontend. Never expose your Database Entity directly to your Angular HttpClient! It’s like sending your internal private class members over the wire.
+
+#### Reference Comparison
+- **Spring Boot:** Uses Annotations (`@Service`, `@RestController`) for Metadata.
+- **Angular:** Uses Decorators (`@Component`, `@Injectable`) for Metadata.
 
 **When to Use:**
 
