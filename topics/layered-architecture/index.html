@@ -443,43 +443,41 @@
 </table>
 
 <p><strong>Key Benefits:</strong></p>
-<p><strong>Quick Example:</strong>
-<div class="highlight"><pre><span></span><code><span class="c1">// Controller</span>
-<span class="nd">@RestController</span>
-<span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&quot;/api/books&quot;</span><span class="p">)</span>
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">BookController</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nd">@Autowired</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">BookService</span><span class="w"> </span><span class="n">bookService</span><span class="p">;</span>
-<span class="w">    </span><span class="c1">// ...</span>
-<span class="p">}</span>
-
-<span class="c1">// Service</span>
-<span class="nd">@Service</span>
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">BookService</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nd">@Autowired</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">BookRepository</span><span class="w"> </span><span class="n">bookRepository</span><span class="p">;</span>
-<span class="w">    </span><span class="c1">// ...</span>
-<span class="p">}</span>
-
-<span class="c1">// Repository</span>
-<span class="nd">@Repository</span>
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">BookRepository</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="c1">// ...</span>
-<span class="p">}</span>
-</code></pre></div></p>
+<p><strong>Quick Example:</strong></p>
 <h1 id="layered-architecture-in-spring-boot">Layered Architecture in Spring Boot</h1>
-<div class="tabbed-set" data-tabs="2:1"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Concise View</label><div class="tabbed-content"></div>
-</div>
-<p><strong>Controller: The Entry Point.</strong> Handles HTTP routing and Request/Response mapping.<br />
-<strong>Service: The Brain.</strong> Orchestrates business logic, transactions, and security.<br />
-<strong>Repository: The Data Gateway.</strong> Abstracts SQL/NoSQL operations using Spring Data JPA.<br />
-<strong>Goal:</strong> Decouple logic from infrastructure to ensure your code doesn't become a "Big Ball of Mud."</p>
-<hr />
-<div class="tabbed-set" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Detailed View</label><div class="tabbed-content"></div>
-</div>
-<h4 id="why-layers">Why Layers?</h4>
+<h2 id="what-is-layered-architecture">What is Layered Architecture?</h2>
+<p>Layered architecture is a design pattern that organizes your application into logical layers, each with a clear responsibility. It's the most common pattern for Java REST APIs using Spring Boot.</p>
+<table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Controller</td>
+<td>Handles HTTP requests and responses, maps endpoints, delegates to service</td>
+</tr>
+<tr>
+<td>Service</td>
+<td>Contains business logic, validation, orchestration of data</td>
+</tr>
+<tr>
+<td>Repository</td>
+<td>Manages data access, such as database operations</td>
+</tr>
+</tbody>
+</table>
+<h2 id="key-benefits">Key Benefits</h2>
+<ul>
+<li>🧩 Clear separation of concerns</li>
+<li>🧪 Easier to test and maintain</li>
+<li>🚀 Promotes code reuse and scalability</li>
+</ul>
+<h2 id="why-layers">Why Layers?</h2>
 <p>In the Java ecosystem, we follow the Principle of Single Responsibility. By isolating the database logic from the REST logic, we can swap a MySQL database for MongoDB without ever touching our REST Controller.</p>
-<h4 id="the-angular-developer-mental-map">The "Angular Developer" Mental Map</h4>
+<h2 id="the-angular-developer-mental-map">The "Angular Developer" Mental Map</h2>
 <table>
 <thead>
 <tr>
@@ -511,43 +509,42 @@
 </tr>
 </tbody>
 </table>
-<h4 id="implementation-example">Implementation Example</h4>
+<h2 id="implementation-example">Implementation Example</h2>
 <p>We’ll use a Book Management system. Notice the use of <code>@RequiredArgsConstructor</code>—it's the modern Java way to do Dependency Injection (instead of the older <code>@Autowired</code> on fields).</p>
-<p><strong>1. The Controller (The API Surface)</strong>
+<h3 id="1-the-controller-the-api-surface">1. The Controller (The API Surface)</h3>
 <div class="highlight"><pre><span></span><code><span class="nd">@RestController</span>
 <span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&quot;/api/v1/books&quot;</span><span class="p">)</span>
 <span class="nd">@RequiredArgsConstructor</span><span class="w"> </span>
 <span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">BookController</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">BookService</span><span class="w"> </span><span class="n">bookService</span><span class="p">;</span><span class="w"> </span><span class="c1">// Final fields + RequiredArgsConstructor = Clean DI</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">BookService</span><span class="w"> </span><span class="n">bookService</span><span class="p">;</span><span class="w"> </span><span class="c1">// Final fields + RequiredArgsConstructor = Clean DI</span>
 
-<span class="w">        </span><span class="nd">@GetMapping</span>
-<span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">BookResponse</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="nf">getAllBooks</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="p">.</span><span class="na">ok</span><span class="p">(</span><span class="n">bookService</span><span class="p">.</span><span class="na">fetchAllBooks</span><span class="p">());</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="nd">@GetMapping</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">BookResponse</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="nf">getAllBooks</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="p">.</span><span class="na">ok</span><span class="p">(</span><span class="n">bookService</span><span class="p">.</span><span class="na">fetchAllBooks</span><span class="p">());</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div></p>
-<p><strong>2. The Service (Business Logic)</strong>
+</code></pre></div>
+<h3 id="2-the-service-business-logic">2. The Service (Business Logic)</h3>
 <div class="highlight"><pre><span></span><code><span class="nd">@Service</span>
 <span class="nd">@RequiredArgsConstructor</span>
 <span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">BookService</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">BookRepository</span><span class="w"> </span><span class="n">repository</span><span class="p">;</span>
+<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">BookRepository</span><span class="w"> </span><span class="n">repository</span><span class="p">;</span>
 
-<span class="w">        </span><span class="nd">@Transactional</span><span class="p">(</span><span class="n">readOnly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
-<span class="w">        </span><span class="kd">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">BookResponse</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">fetchAllBooks</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="n">repository</span><span class="p">.</span><span class="na">findAll</span><span class="p">().</span><span class="na">stream</span><span class="p">()</span>
-<span class="w">                                </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">book</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BookResponse</span><span class="p">(</span><span class="n">book</span><span class="p">.</span><span class="na">getId</span><span class="p">(),</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">getTitle</span><span class="p">()))</span>
-<span class="w">                                </span><span class="p">.</span><span class="na">toList</span><span class="p">();</span><span class="w"> </span><span class="c1">// Java 17+ syntax</span>
-<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="nd">@Transactional</span><span class="p">(</span><span class="n">readOnly</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">BookResponse</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">fetchAllBooks</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">repository</span><span class="p">.</span><span class="na">findAll</span><span class="p">().</span><span class="na">stream</span><span class="p">()</span>
+<span class="w">                </span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">book</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">BookResponse</span><span class="p">(</span><span class="n">book</span><span class="p">.</span><span class="na">getId</span><span class="p">(),</span><span class="w"> </span><span class="n">book</span><span class="p">.</span><span class="na">getTitle</span><span class="p">()))</span>
+<span class="w">                </span><span class="p">.</span><span class="na">toList</span><span class="p">();</span><span class="w"> </span><span class="c1">// Java 17+ syntax</span>
+<span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
-</code></pre></div></p>
-<p><strong>3. The Repository (Data Access)</strong>
+</code></pre></div>
+<h3 id="3-the-repository-data-access">3. The Repository (Data Access)</h3>
 <div class="highlight"><pre><span></span><code><span class="nd">@Repository</span>
 <span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">BookRepository</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">BookEntity</span><span class="p">,</span><span class="w"> </span><span class="n">Long</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="c1">// You get CRUD for free! No implementation code needed.</span>
+<span class="w">    </span><span class="c1">// You get CRUD for free! No implementation code needed.</span>
 <span class="p">}</span>
-</code></pre></div></p>
-<hr />
-<h3 id="lab-instructions-the-migration">Lab Instructions: "The Migration"</h3>
+</code></pre></div>
+<h2 id="lab-instructions-the-migration">Lab Instructions: "The Migration"</h2>
 <ol>
 <li><strong>Generate:</strong> Use start.spring.io to bootstrap a project with Spring Web and Spring Data JPA.</li>
 <li><strong>Model:</strong> Create a Book entity with id, title, and author.</li>
@@ -558,59 +555,28 @@
 <blockquote>
 <p><strong>Pro Tip for Angular Devs:</strong> In Java, we use DTOs (Data Transfer Objects) to send data to the frontend. Never expose your Database Entity directly to your Angular HttpClient! It’s like sending your internal private class members over the wire.</p>
 </blockquote>
-<h4 id="reference-comparison">Reference Comparison</h4>
+<h2 id="reference-comparison">Reference Comparison</h2>
 <ul>
 <li><strong>Spring Boot:</strong> Uses Annotations (<code>@Service</code>, <code>@RestController</code>) for Metadata.</li>
-<li><strong>Angular:</strong> Uses Decorators (<code>@Component</code>, <code>@Injectable</code>) for Metadata.</li>
-</ul>
-<p><strong>When to Use:</strong></p>
-<ul>
-<li>Most RESTful APIs and CRUD applications</li>
-<li>Projects where maintainability and testability are priorities</li>
-</ul>
-<p><strong>Compare:</strong></p>
-<ul>
-<li>Easier to understand than Hexagonal or Microkernel architectures</li>
-</ul>
-<p><strong>Real-World Example:</strong></p>
-<blockquote>
-<p>Online bookstores, banking apps, and ticketing systems often use this pattern for their backend APIs.</p>
-</blockquote>
-<hr />
-<div class="tabbed-set" data-tabs="4:1"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">Detailed Guide 📚</label><div class="tabbed-content"></div>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Why Use Layered Architecture?</p>
-<ul>
-<li><strong>Separation of Concerns:</strong> Each layer has a single responsibility, making code easier to manage.</li>
-<li><strong>Testability:</strong> You can test each layer independently using mocks or stubs.</li>
-<li><strong>Maintainability:</strong> Changes in one layer (e.g., switching databases) have minimal impact on others.</li>
-<li><strong>Scalability:</strong> Layers can be scaled or replaced independently.</li>
-</ul>
-</div>
-<h2 id="typical-structure">Typical Structure</h2>
-<div class="highlight"><pre><span></span><code>com.example.demo
-├── controller
-│   └── BookController.java
-├── service
-│   └── BookService.java
-└── repository
+<li><strong>Angular:</strong> Uses Decorators (<code>@Component</code>, <code>@Injectable</code>) for Metadata.
     └── BookRepository.java
-</code></pre></div>
-<h2 id="example-book-api">Example: Book API</h2>
-<p><strong>BookController.java</strong>
-<div class="highlight"><pre><span></span><code><span class="nd">@RestController</span>
-<span class="nd">@RequestMapping</span><span class="p">(</span><span class="s">&quot;/api/books&quot;</span><span class="p">)</span>
-<span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">BookController</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="nd">@Autowired</span>
-<span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">BookService</span><span class="w"> </span><span class="n">bookService</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code>## Example: Book API
 
-<span class="w">    </span><span class="nd">@GetMapping</span>
-<span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Book</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getAllBooks</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">bookService</span><span class="p">.</span><span class="na">getAllBooks</span><span class="p">();</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></p>
+**BookController.java**
+```java
+@RestController
+@RequestMapping(&quot;/api/books&quot;)
+public class BookController {
+    @Autowired
+    private BookService bookService;
+
+    @GetMapping
+    public List&lt;Book&gt; getAllBooks() {
+        return bookService.getAllBooks();
+    }
+}
+</code></pre></div></li>
+</ul>
 <p><strong>BookService.java</strong>
 <div class="highlight"><pre><span></span><code><span class="nd">@Service</span>
 <span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">BookService</span><span class="w"> </span><span class="p">{</span>
