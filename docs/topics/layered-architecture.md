@@ -1,7 +1,14 @@
 
+
 # Layered Architecture <span style="font-size:1.2em;">🗂️</span>
 
 <br>
+
+<div style="margin-bottom: 1em;">
+<b>Jump to:</b>
+<a href="#concise-overview-">Concise View</a> |
+<a href="#detailed-guide-">Detailed View</a>
+</div>
 
 === "Concise Overview 📝"
 
