@@ -1,0 +1,10 @@
+# Ignore build and IDE files
+/node_modules/
+/dist/
+/.env
+/.vscode/
+/.idea/
+*.log
+*.class
+/target/
+.DS_Store
