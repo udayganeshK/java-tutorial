@@ -366,81 +366,166 @@
 
 <h1 id="layered-architecture-controllers-services-repositories">Layered Architecture: Controllers, Services, Repositories</h1>
 <p>=== "Concise View"</p>
-<pre><code>- **Controller**: Handles HTTP requests/responses
-- **Service**: Business logic
-- **Repository**: Data access (DB operations)
-- Promotes maintainability, testability, and separation of concerns
+<p><strong>What is Layered Architecture?</strong></p>
+<p>Layered architecture is a design pattern that organizes code into logical layers, each with a specific responsibility. It is the most common pattern for Java REST APIs using Spring Boot.</p>
+<p><strong>Typical Layers:</strong>
+- <strong>Controller Layer</strong>: Handles HTTP requests and responses, maps endpoints, and delegates work to the service layer.
+- <strong>Service Layer</strong>: Contains business logic, validation, and orchestration of data.
+- <strong>Repository Layer</strong>: Manages data access, such as database operations.</p>
+<p><strong>Key Benefits:</strong>
+- Clear separation of concerns
+- Easier to test and maintain
+- Promotes code reuse and scalability</p>
+<p><strong>Quick Example:</strong></p>
+<pre><code class="language-java">// Controller
+@RestController
+@RequestMapping(&quot;/api/books&quot;)
+public class BookController {
+    @Autowired
+    private BookService bookService;
+    // ...
+}
+
+// Service
+@Service
+public class BookService {
+    @Autowired
+    private BookRepository bookRepository;
+    // ...
+}
+
+// Repository
+@Repository
+public class BookRepository {
+    // ...
+}
 </code></pre>
+<p><strong>When to Use:</strong>
+- Most RESTful APIs and CRUD applications
+- Projects where maintainability and testability are priorities</p>
+<p><strong>Compare:</strong>
+- Easier to understand than Hexagonal or Microkernel architectures</p>
+<p><strong>Real-World Example:</strong>
+Online bookstores, banking apps, and ticketing systems often use this pattern for their backend APIs.</p>
 <p>=== "Detailed View"</p>
-<pre><code>## Overview
-Layered architecture organizes code into logical layers, each with a specific responsibility. In Spring Boot, the most common layers are:
-
-- **Controller**: Handles HTTP requests and responses
-- **Service**: Contains business logic
-- **Repository**: Manages data access (e.g., database operations)
-
-This separation improves maintainability, testability, and scalability. It also makes it easier to test and refactor code, and to assign clear responsibilities to each part of your application.
-
-## Structure Example
-```
-com.example.demo
+<h2 id="overview">Overview</h2>
+<p>Layered architecture divides your application into distinct layers, each with a clear responsibility. In a typical Spring Boot REST API, you’ll find:</p>
+<ul>
+<li><strong>Controller Layer</strong>: Handles HTTP requests, maps endpoints, and returns responses.</li>
+<li><strong>Service Layer</strong>: Contains business logic, validation, and coordinates between controllers and repositories.</li>
+<li><strong>Repository Layer</strong>: Handles data persistence, such as database CRUD operations.</li>
+</ul>
+<h2 id="why-use-layered-architecture">Why Use Layered Architecture?</h2>
+<ul>
+<li><strong>Separation of Concerns</strong>: Each layer has a single responsibility, making code easier to manage.</li>
+<li><strong>Testability</strong>: You can test each layer independently using mocks or stubs.</li>
+<li><strong>Maintainability</strong>: Changes in one layer (e.g., switching databases) have minimal impact on others.</li>
+<li><strong>Scalability</strong>: Layers can be scaled or replaced independently.</li>
+</ul>
+<h2 id="structure-example">Structure Example</h2>
+<pre><code>com.example.demo
 ├── controller
 │   └── BookController.java
 ├── service
 │   └── BookService.java
 └── repository
     └── BookRepository.java
-```
-
-## Code Example
-**BookController.java**
-```java
-@RestController
-@RequestMapping("/api/books")
+</code></pre>
+<h2 id="code-example">Code Example</h2>
+<p><strong>BookController.java</strong></p>
+<pre><code class="language-java">@RestController
+@RequestMapping(&quot;/api/books&quot;)
 public class BookController {
     @Autowired
     private BookService bookService;
 
     @GetMapping
-    public List&lt;BookDTO&gt; getAllBooks() {
+    public List&lt;Book&gt; getAllBooks() {
         return bookService.getAllBooks();
     }
 }
-```
-
-**BookService.java**
-```java
-@Service
+</code></pre>
+<p><strong>BookService.java</strong></p>
+<pre><code class="language-java">@Service
 public class BookService {
     @Autowired
     private BookRepository bookRepository;
 
-    public List&lt;BookDTO&gt; getAllBooks() {
-        // business logic, mapping, etc.
-        return ...;
+    public List&lt;Book&gt; getAllBooks() {
+        return bookRepository.findAll();
     }
 }
-```
-
-**BookRepository.java**
-```java
-public interface BookRepository extends JpaRepository&lt;Book, Long&gt; {}
-```
-
-## Lab Instructions
-1. Create a new Spring Boot project with the above structure.
-2. Implement a simple REST API for managing books using Controller, Service, and Repository layers.
-3. Add a new endpoint to fetch all books.
-4. (Optional) Add endpoints for creating, updating, and deleting books.
-
-## Angular Perspective
-- Similar to Angular's separation of concerns: Components (UI), Services (logic), and HttpClient (data access).
-- Promotes modular, testable code in both frontend and backend.
-
-## Further Reading
-- [Spring Boot Reference Documentation](https://docs.spring.io/spring-boot/docs/current/reference/html/)
-- [Layered Architecture Pattern](https://martinfowler.com/eaaCatalog/layeredArchitecture.html)
 </code></pre>
+<p><strong>BookRepository.java</strong></p>
+<pre><code class="language-java">@Repository
+public class BookRepository {
+    public List&lt;Book&gt; findAll() {
+        // Imagine this connects to a database
+        return List.of(new Book(&quot;Java 101&quot;), new Book(&quot;Spring Boot in Action&quot;));
+    }
+}
+</code></pre>
+<h2 id="real-world-use-case">Real-World Use Case</h2>
+<p>Suppose you’re building an online bookstore. The controller handles HTTP requests for books, the service layer contains business rules (e.g., discounts, stock checks), and the repository interacts with the database.</p>
+<h2 id="comparison-with-other-architectures">Comparison with Other Architectures</h2>
+<ul>
+<li><strong>Hexagonal (Ports &amp; Adapters)</strong>: More flexible for complex integrations, but harder to grasp for beginners.</li>
+<li><strong>Microkernel</strong>: Good for plugin-based systems, but overkill for most REST APIs.</li>
+<li><strong>Layered</strong>: Easiest to start with, especially for CRUD and RESTful services.</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ul>
+<li>Keep controllers thin—move logic to services.</li>
+<li>Use interfaces for services and repositories for easier testing.</li>
+<li>Avoid direct database access in controllers or services.</li>
+</ul>
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+<li><a href="https://docs.spring.io/spring-boot/docs/current/reference/html/">Spring Boot Reference Documentation</a></li>
+<li>
+<p><a href="https://martinfowler.com/eaaCatalog/layeredArchitecture.html">Martin Fowler: Patterns of Enterprise Application Architecture</a></p>
+<pre><code>@GetMapping
+public List&lt;BookDTO&gt; getAllBooks() {
+    return bookService.getAllBooks();
+}
+</code></pre>
+<p>}
+```</p>
+<p><strong>BookService.java</strong>
+```java
+@Service
+public class BookService {
+    @Autowired
+    private BookRepository bookRepository;</p>
+<pre><code>public List&lt;BookDTO&gt; getAllBooks() {
+    // business logic, mapping, etc.
+    return ...;
+}
+</code></pre>
+<p>}
+```</p>
+<p><strong>BookRepository.java</strong>
+<code>java
+public interface BookRepository extends JpaRepository&lt;Book, Long&gt; {}</code></p>
+<h2 id="lab-instructions">Lab Instructions</h2>
+<ol>
+<li>Create a new Spring Boot project with the above structure.</li>
+<li>Implement a simple REST API for managing books using Controller, Service, and Repository layers.</li>
+<li>Add a new endpoint to fetch all books.</li>
+<li>(Optional) Add endpoints for creating, updating, and deleting books.</li>
+</ol>
+<h2 id="angular-perspective">Angular Perspective</h2>
+<ul>
+<li>Similar to Angular's separation of concerns: Components (UI), Services (logic), and HttpClient (data access).</li>
+<li>Promotes modular, testable code in both frontend and backend.</li>
+</ul>
+<h2 id="further-reading_1">Further Reading</h2>
+<ul>
+<li><a href="https://docs.spring.io/spring-boot/docs/current/reference/html/">Spring Boot Reference Documentation</a></li>
+<li><a href="https://martinfowler.com/eaaCatalog/layeredArchitecture.html">Layered Architecture Pattern</a></li>
+</ul>
+</li>
+</ul>
 
 
 
