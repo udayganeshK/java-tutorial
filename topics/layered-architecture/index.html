@@ -19,7 +19,7 @@
     
     
       
-        <title>Layered Architecture: Controllers, Services, Repositories - Java Spring Boot REST Tutorials</title>
+        <title>Layered Architecture 🗂️ - Java Spring Boot REST Tutorials</title>
       
     
     
@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#layered-architecture-controllers-services-repositories" class="md-skip">
+        <a href="#layered-architecture" class="md-skip">
           Skip to content
         </a>
       
@@ -94,7 +94,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Layered Architecture: Controllers, Services, Repositories
+              Layered Architecture 🗂️
             
           </span>
         </div>
@@ -364,18 +364,32 @@
 
 
 
-<h1 id="layered-architecture-controllers-services-repositories">Layered Architecture: Controllers, Services, Repositories</h1>
-<p>=== "Concise View"</p>
-<p><strong>What is Layered Architecture?</strong></p>
-<p>Layered architecture is a design pattern that organizes code into logical layers, each with a specific responsibility. It is the most common pattern for Java REST APIs using Spring Boot.</p>
-<p><strong>Typical Layers:</strong>
-- <strong>Controller Layer</strong>: Handles HTTP requests and responses, maps endpoints, and delegates work to the service layer.
-- <strong>Service Layer</strong>: Contains business logic, validation, and orchestration of data.
-- <strong>Repository Layer</strong>: Manages data access, such as database operations.</p>
-<p><strong>Key Benefits:</strong>
-- Clear separation of concerns
-- Easier to test and maintain
-- Promotes code reuse and scalability</p>
+<h1 id="layered-architecture">Layered Architecture <span style="font-size:1.2em;">🗂️</span></h1>
+<p><br></p>
+<p>=== "Concise Overview 📝"</p>
+<p>!!! info "What is Layered Architecture?"
+    Layered architecture is a design pattern that organizes your application into logical layers, each with a clear responsibility. It's the most common pattern for Java REST APIs using Spring Boot.</p>
+<table>
+  <tr>
+    <td> <b>🔗 Controller Layer</b> </td>
+    <td>Handles HTTP requests and responses, maps endpoints, and delegates work to the service layer.</td>
+  </tr>
+  <tr>
+    <td> <b>⚙️ Service Layer</b> </td>
+    <td>Contains business logic, validation, and orchestration of data.</td>
+  </tr>
+  <tr>
+    <td> <b>💾 Repository Layer</b> </td>
+    <td>Manages data access, such as database operations.</td>
+  </tr>
+</table>
+
+<p><strong>Key Benefits:</strong></p>
+<ul>
+<li>🧩 Clear separation of concerns</li>
+<li>🧪 Easier to test and maintain</li>
+<li>🚀 Promotes code reuse and scalability</li>
+</ul>
 <p><strong>Quick Example:</strong></p>
 <pre><code class="language-java">// Controller
 @RestController
@@ -400,30 +414,28 @@ public class BookRepository {
     // ...
 }
 </code></pre>
-<p><strong>When to Use:</strong>
-- Most RESTful APIs and CRUD applications
-- Projects where maintainability and testability are priorities</p>
-<p><strong>Compare:</strong>
-- Easier to understand than Hexagonal or Microkernel architectures</p>
-<p><strong>Real-World Example:</strong>
-Online bookstores, banking apps, and ticketing systems often use this pattern for their backend APIs.</p>
-<p>=== "Detailed View"</p>
-<h2 id="overview">Overview</h2>
-<p>Layered architecture divides your application into distinct layers, each with a clear responsibility. In a typical Spring Boot REST API, you’ll find:</p>
+<p><strong>When to Use:</strong></p>
 <ul>
-<li><strong>Controller Layer</strong>: Handles HTTP requests, maps endpoints, and returns responses.</li>
-<li><strong>Service Layer</strong>: Contains business logic, validation, and coordinates between controllers and repositories.</li>
-<li><strong>Repository Layer</strong>: Handles data persistence, such as database CRUD operations.</li>
+<li>Most RESTful APIs and CRUD applications</li>
+<li>Projects where maintainability and testability are priorities</li>
 </ul>
-<h2 id="why-use-layered-architecture">Why Use Layered Architecture?</h2>
+<p><strong>Compare:</strong></p>
 <ul>
-<li><strong>Separation of Concerns</strong>: Each layer has a single responsibility, making code easier to manage.</li>
-<li><strong>Testability</strong>: You can test each layer independently using mocks or stubs.</li>
-<li><strong>Maintainability</strong>: Changes in one layer (e.g., switching databases) have minimal impact on others.</li>
-<li><strong>Scalability</strong>: Layers can be scaled or replaced independently.</li>
+<li>Easier to understand than Hexagonal or Microkernel architectures</li>
 </ul>
-<h2 id="structure-example">Structure Example</h2>
-<pre><code>com.example.demo
+<p><strong>Real-World Example:</strong></p>
+<blockquote>
+<p>Online bookstores, banking apps, and ticketing systems often use this pattern for their backend APIs.</p>
+</blockquote>
+<hr />
+<p>=== "Detailed Guide 📚"</p>
+<p>!!! tip "Why Use Layered Architecture?"
+    - <strong>Separation of Concerns:</strong> Each layer has a single responsibility, making code easier to manage.
+    - <strong>Testability:</strong> You can test each layer independently using mocks or stubs.
+    - <strong>Maintainability:</strong> Changes in one layer (e.g., switching databases) have minimal impact on others.
+    - <strong>Scalability:</strong> Layers can be scaled or replaced independently.</p>
+<h2 id="typical-structure">Typical Structure</h2>
+<pre><code class="language-text">com.example.demo
 ├── controller
 │   └── BookController.java
 ├── service
@@ -431,7 +443,7 @@ Online bookstores, banking apps, and ticketing systems often use this pattern fo
 └── repository
     └── BookRepository.java
 </code></pre>
-<h2 id="code-example">Code Example</h2>
+<h2 id="example-book-api">Example: Book API</h2>
 <p><strong>BookController.java</strong></p>
 <pre><code class="language-java">@RestController
 @RequestMapping(&quot;/api/books&quot;)
@@ -468,11 +480,32 @@ public class BookRepository {
 <h2 id="real-world-use-case">Real-World Use Case</h2>
 <p>Suppose you’re building an online bookstore. The controller handles HTTP requests for books, the service layer contains business rules (e.g., discounts, stock checks), and the repository interacts with the database.</p>
 <h2 id="comparison-with-other-architectures">Comparison with Other Architectures</h2>
-<ul>
-<li><strong>Hexagonal (Ports &amp; Adapters)</strong>: More flexible for complex integrations, but harder to grasp for beginners.</li>
-<li><strong>Microkernel</strong>: Good for plugin-based systems, but overkill for most REST APIs.</li>
-<li><strong>Layered</strong>: Easiest to start with, especially for CRUD and RESTful services.</li>
-</ul>
+<table>
+<thead>
+<tr>
+<th>Architecture</th>
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Layered</td>
+<td>Simple, maintainable, testable</td>
+<td>Can become rigid for large systems</td>
+</tr>
+<tr>
+<td>Hexagonal</td>
+<td>Flexible, good for integrations</td>
+<td>More complex, steeper learning curve</td>
+</tr>
+<tr>
+<td>Microkernel</td>
+<td>Great for plugin-based systems</td>
+<td>Overkill for most REST APIs</td>
+</tr>
+</tbody>
+</table>
 <h2 id="best-practices">Best Practices</h2>
 <ul>
 <li>Keep controllers thin—move logic to services.</li>
@@ -480,6 +513,59 @@ public class BookRepository {
 <li>Avoid direct database access in controllers or services.</li>
 </ul>
 <h2 id="further-reading">Further Reading</h2>
+<ul>
+<li><a href="https://docs.spring.io/spring-boot/docs/current/reference/html/">Spring Boot Reference Documentation</a></li>
+<li><a href="https://martinfowler.com/eaaCatalog/layeredArchitecture.html">Martin Fowler: Patterns of Enterprise Application Architecture</a></li>
+</ul>
+<h2 id="code-example">Code Example</h2>
+<p><strong>BookController.java</strong></p>
+<pre><code class="language-java">@RestController
+@RequestMapping(&quot;/api/books&quot;)
+public class BookController {
+    @Autowired
+    private BookService bookService;
+
+    @GetMapping
+    public List&lt;Book&gt; getAllBooks() {
+        return bookService.getAllBooks();
+    }
+}
+</code></pre>
+<p><strong>BookService.java</strong></p>
+<pre><code class="language-java">@Service
+public class BookService {
+    @Autowired
+    private BookRepository bookRepository;
+
+    public List&lt;Book&gt; getAllBooks() {
+        return bookRepository.findAll();
+    }
+}
+</code></pre>
+<p><strong>BookRepository.java</strong></p>
+<pre><code class="language-java">@Repository
+public class BookRepository {
+    public List&lt;Book&gt; findAll() {
+        // Imagine this connects to a database
+        return List.of(new Book(&quot;Java 101&quot;), new Book(&quot;Spring Boot in Action&quot;));
+    }
+}
+</code></pre>
+<h2 id="real-world-use-case_1">Real-World Use Case</h2>
+<p>Suppose you’re building an online bookstore. The controller handles HTTP requests for books, the service layer contains business rules (e.g., discounts, stock checks), and the repository interacts with the database.</p>
+<h2 id="comparison-with-other-architectures_1">Comparison with Other Architectures</h2>
+<ul>
+<li><strong>Hexagonal (Ports &amp; Adapters)</strong>: More flexible for complex integrations, but harder to grasp for beginners.</li>
+<li><strong>Microkernel</strong>: Good for plugin-based systems, but overkill for most REST APIs.</li>
+<li><strong>Layered</strong>: Easiest to start with, especially for CRUD and RESTful services.</li>
+</ul>
+<h2 id="best-practices_1">Best Practices</h2>
+<ul>
+<li>Keep controllers thin—move logic to services.</li>
+<li>Use interfaces for services and repositories for easier testing.</li>
+<li>Avoid direct database access in controllers or services.</li>
+</ul>
+<h2 id="further-reading_1">Further Reading</h2>
 <ul>
 <li><a href="https://docs.spring.io/spring-boot/docs/current/reference/html/">Spring Boot Reference Documentation</a></li>
 <li>
@@ -519,7 +605,7 @@ public interface BookRepository extends JpaRepository&lt;Book, Long&gt; {}</code
 <li>Similar to Angular's separation of concerns: Components (UI), Services (logic), and HttpClient (data access).</li>
 <li>Promotes modular, testable code in both frontend and backend.</li>
 </ul>
-<h2 id="further-reading_1">Further Reading</h2>
+<h2 id="further-reading_2">Further Reading</h2>
 <ul>
 <li><a href="https://docs.spring.io/spring-boot/docs/current/reference/html/">Spring Boot Reference Documentation</a></li>
 <li><a href="https://martinfowler.com/eaaCatalog/layeredArchitecture.html">Layered Architecture Pattern</a></li>
