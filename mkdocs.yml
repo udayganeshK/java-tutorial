@@ -23,5 +23,8 @@ markdown_extensions:
   - pymdownx.tabbed
   - pymdownx.superfences
 
+extra_javascript:
+  - js/custom-nav.js
+
 docs_dir: docs
 site_dir: site
