@@ -1,7 +1,12 @@
 # Java Spring Boot REST Tutorials
 
-Welcome! This site is a proof of concept for hosting interactive, tabbed tutorials for Java Spring Boot REST development, tailored for Angular developers.
+Welcome! This site provides interactive, tabbed tutorials for Java Spring Boot REST development, tailored for Angular developers.
 
-- [Layered Architecture](layered-architecture.md)
+## Featured Topics
+- [Layered Architecture](layered-architecture.md) — Understanding separation of concerns with Controllers, Services, and Repositories
 
-> Use the navigation or links above to explore topics. Each topic page features both a concise and a detailed view.
+> Each topic features both a **Concise View** for quick reference and a **Detailed View** with in-depth explanations, code examples, and lab instructions.
+
+## Getting Started
+Use the navigation above to explore topics. Each page includes practical examples and hands-on lab exercises.
+

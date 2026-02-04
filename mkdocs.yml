@@ -1,0 +1,15 @@
+site_name: Java Spring Boot REST Tutorials
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.instant
+    - toc.integrate
+
+nav:
+  - Home: index.md
+  - Topics:
+    - Layered Architecture: layered-architecture.md
+
+docs_dir: docs
+site_dir: _site
