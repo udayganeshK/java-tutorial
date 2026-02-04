@@ -11,9 +11,12 @@ theme:
 nav:
   - Home: index.md
   - Topics:
-      - Layered Architecture: topics/layered-architecture.md
-      - Dependency Injection: topics/dependency-injection.md
-      - DTOs vs Entities: topics/dtos-vs-entities.md
+      - Layered Architecture:
+          - Overview: topics/layered-architecture.md
+      - Dependency Injection:
+          - Overview: topics/dependency-injection.md
+      - DTOs vs Entities:
+          - Overview: topics/dtos-vs-entities.md
 
 markdown_extensions:
   - admonition
